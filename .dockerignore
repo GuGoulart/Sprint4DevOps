@@ -1,0 +1,43 @@
+# Build folders
+**/bin/
+**/obj/
+**/out/
+
+# IDE folders
+.vs/
+.vscode/
+*.user
+*.suo
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Tests
+**/MottuProjeto.Tests/
+**/MottuProjeto.UnitTests/
+**/MottuProjeto.IntegrationTests/
+**/*Tests/
+**/*.Tests/
+
+# Coverage
+**/coverage-report/
+**/TestResults/
+
+# Documentation
+README.md
+LICENSE
+*.md
+
+# Docker
+docker-compose*.yml
+Dockerfile*
+
+# Environment
+.env
+.env.*
+
+# Logs
+**/logs/
+*.log
