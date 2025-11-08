@@ -20,9 +20,9 @@ RUN dotnet publish "MottuProjeto.csproj" -c Release -o /app/publish /p:UseAppHos
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
 
-# Expor portas HTTP e HTTPS
-EXPOSE 80
-EXPOSE 443
+# Expor porta 8080
+EXPOSE 8080
+ENV ASPNETCORE_URLS=http://+:8080
 
 # Copiar arquivos publicados do stage anterior
 COPY --from=publish /app/publish .
