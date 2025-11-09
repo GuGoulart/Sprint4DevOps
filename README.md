@@ -1,8 +1,8 @@
 # 🏍️ MottuProjeto API
 
-API de gestão de usuários, motos e áreas com autenticação JWT, versionamento, machine learning e health checks.
+API de gestão de usuáriossssssss, motos e áreas com autenticação JWT, versionamento, machine learning e health checks.
 
-## 🚀 Tecnologias
+## 🚀 Tecnologias 
 
 - **.NET 8.0** - Framework principal
 - **ASP.NET Core Web API** - API REST
