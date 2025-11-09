@@ -1,24 +1,5 @@
--- ============================================================================
--- SCRIPT SQL - SPRINT 4 - AZURE DEVOPS
--- FIAP - DevOps Tools & Cloud Computing
--- ============================================================================
--- Projeto: MottuProjeto
--- Banco: Azure SQL Server (mottubanco)
--- Servidor: mottuserver.database.windows.net
--- ============================================================================
--- ATENÇÃO: Este script atende o requisito de ter 2+ tabelas relacionadas
--- Penalidade se não incluir: -1 ponto
--- ============================================================================
-
--- Configuração inicial do banco
 USE mottubanco;
 GO
-
--- ============================================================================
--- TABELA 1: T_VM_AREA (Áreas Operacionais)
--- ============================================================================
--- Tabela principal que armazena as áreas/regiões operacionais
--- Relacionamento: Uma área pode ter várias motos (1:N)
 
 IF OBJECT_ID('dbo.T_VM_AREA', 'U') IS NOT NULL
     DROP TABLE dbo.T_VM_AREA;
@@ -49,12 +30,6 @@ EXEC sp_addextendedproperty
     @level2type = N'COLUMN', @level2name = N'NM_AREA';
 GO
 
--- ============================================================================
--- TABELA 2: T_VM_MOTO (Motos)
--- ============================================================================
--- Armazena informações das motos da frota
--- Relacionamento: Cada moto pertence a UMA área (N:1 com T_VM_AREA)
-
 IF OBJECT_ID('dbo.T_VM_MOTO', 'U') IS NOT NULL
     DROP TABLE dbo.T_VM_MOTO;
 GO
@@ -74,11 +49,10 @@ CREATE TABLE T_VM_MOTO (
 );
 GO
 
--- Índice para melhorar performance de consultas por área
+
 CREATE INDEX IX_MOTO_AREA ON T_VM_MOTO(ID_AREA);
 GO
 
--- Comentários descritivos
 EXEC sp_addextendedproperty 
     @name = N'MS_Description', 
     @value = N'Identificador único da moto', 
@@ -111,12 +85,6 @@ EXEC sp_addextendedproperty
     @level2type = N'COLUMN', @level2name = N'ID_AREA';
 GO
 
--- ============================================================================
--- TABELA 3: T_VM_USUARIO (Usuários do Sistema)
--- ============================================================================
--- Armazena usuários que podem acessar o sistema
--- Usado para autenticação JWT
-
 IF OBJECT_ID('dbo.T_VM_USUARIO', 'U') IS NOT NULL
     DROP TABLE dbo.T_VM_USUARIO;
 GO
@@ -136,12 +104,10 @@ CREATE TABLE T_VM_USUARIO (
 );
 GO
 
--- Índices para melhorar performance de autenticação
 CREATE INDEX IX_USUARIO_USERNAME ON T_VM_USUARIO(DS_USERNAME);
 CREATE INDEX IX_USUARIO_EMAIL ON T_VM_USUARIO(DS_EMAIL);
 GO
 
--- Comentários descritivos
 EXEC sp_addextendedproperty 
     @name = N'MS_Description', 
     @value = N'Identificador único do usuário', 
@@ -190,11 +156,6 @@ EXEC sp_addextendedproperty
     @level2type = N'COLUMN', @level2name = N'DS_ROLE';
 GO
 
--- ============================================================================
--- DADOS INICIAIS (SEED)
--- ============================================================================
-
--- Inserir áreas padrão
 SET IDENTITY_INSERT T_VM_AREA ON;
 GO
 
@@ -209,7 +170,6 @@ GO
 SET IDENTITY_INSERT T_VM_AREA OFF;
 GO
 
--- Inserir motos de exemplo
 SET IDENTITY_INSERT T_VM_MOTO ON;
 GO
 
@@ -224,8 +184,6 @@ GO
 SET IDENTITY_INSERT T_VM_MOTO OFF;
 GO
 
--- Inserir usuário administrador padrão
--- ATENÇÃO: Em produção, SEMPRE use hash seguro (BCrypt, Argon2)
 SET IDENTITY_INSERT T_VM_USUARIO ON;
 GO
 
@@ -237,11 +195,6 @@ GO
 SET IDENTITY_INSERT T_VM_USUARIO OFF;
 GO
 
--- ============================================================================
--- VERIFICAÇÃO FINAL
--- ============================================================================
-
--- Verificar se todas as tabelas foram criadas
 SELECT 
     TABLE_NAME AS 'Tabela Criada',
     (SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = t.TABLE_NAME) AS 'Quantidade Colunas'
@@ -251,7 +204,6 @@ WHERE TABLE_TYPE = 'BASE TABLE'
 ORDER BY TABLE_NAME;
 GO
 
--- Verificar relacionamentos (Foreign Keys)
 SELECT 
     fk.name AS 'Foreign Key',
     OBJECT_NAME(fk.parent_object_id) AS 'Tabela Origem',
@@ -265,25 +217,12 @@ WHERE fk.parent_object_id IN (
 ORDER BY OBJECT_NAME(fk.parent_object_id);
 GO
 
--- Verificar dados inseridos
 SELECT 'T_VM_AREA' AS Tabela, COUNT(*) AS Total FROM T_VM_AREA
 UNION ALL
 SELECT 'T_VM_MOTO', COUNT(*) FROM T_VM_MOTO
 UNION ALL
 SELECT 'T_VM_USUARIO', COUNT(*) FROM T_VM_USUARIO;
 GO
-
--- ============================================================================
--- FIM DO SCRIPT
--- ============================================================================
--- ✅ Requisitos atendidos:
---    - 3 tabelas criadas (mais que o mínimo de 2)
---    - Relacionamento FK entre MOTO e AREA
---    - Constraints (PK, FK, UK, CK)
---    - Índices para performance
---    - Dados iniciais (SEED)
---    - Comentários descritivos
--- ============================================================================
 
 PRINT '✅ Script executado com sucesso!';
 PRINT '✅ Tabelas criadas: T_VM_AREA, T_VM_MOTO, T_VM_USUARIO';

@@ -15,23 +15,6 @@ API de gestão de usuários, motos e áreas com autenticação JWT, versionament
 - **ML.NET** - Machine Learning
 - **Azure DevOps** - CI/CD
 
-## 🏗️ Estrutura do Projeto
-
-```
-MottuProjeto/
-├── Controllers/          # Controllers da API
-├── Data/                 # DbContext e configurações de banco
-├── Models/               # Modelos de dados
-├── ML/                   # Serviços de Machine Learning
-│   ├── MotoRiskModelService.cs
-│   └── TelemetryRiskService.cs
-├── MottuProjeto.Tests/              # Testes gerais
-├── MottuProjeto.UnitTests/          # Testes unitários
-├── MottuProjeto.IntegrationTests/   # Testes de integração
-├── Program.cs            # Ponto de entrada da aplicação
-├── MottuProjeto.csproj   # Arquivo de projeto
-├── Dockerfile            # Configuração Docker
-└── appsettings.json      # Configurações da aplicação
 ```
 
 ## 📦 Como Executar
@@ -203,7 +186,7 @@ Modelos treinados com dados em:
 
 Acesse o Swagger UI para documentação interativa:
 
-- **Desenvolvimento:** `https://localhost:7000/swagger`
+- **Desenvolvimento:** `https://localhost:####/swagger`
 - **Produção:** `https://seu-app.azurewebsites.net/swagger`
 
 ## 🚢 Deploy
@@ -230,20 +213,11 @@ Jwt__Audience=MottuFront
 
 **Sprint 4 - DevOps Tools & Cloud Computing - FIAP**
 
-- [Seu Nome] - RM99999 - Turma 2TDSPK
-- [Nome 2] - RM88888 - Turma 2TDSPK
+- RM 556293 Alice Teixeira Caldeira 
+- RM 555708 Gustavo Goulart 
+- RM 554557 Victor Medeiros
+
 
 ## 📝 Licença
 
 Este projeto foi desenvolvido como parte do curso de DevOps da FIAP.
-
-## 🔗 Links
-
-- **Repositório GitHub:** [Link do seu repositório]
-- **Azure DevOps:** [Link do projeto Azure DevOps]
-- **Aplicação (Produção):** [Link do Azure Web App]
-- **Vídeo Demonstrativo:** [Link do YouTube]
-
----
-
-**Última atualização:** Novembro 2025
